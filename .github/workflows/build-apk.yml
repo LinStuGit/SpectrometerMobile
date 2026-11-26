@@ -25,20 +25,24 @@ jobs:
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
             "platforms;android-34" "build-tools;34.0.0" "platform-tools"
 
-      - name: Setup Gradle 8.9
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: '8.9'
+      # 不用 gradle/actions/setup-gradle —— 它依赖 GitHub 缓存服务，
+      # 缓存服务故障时 gradle 命令不可用。直接下载 Gradle 8.9 解压。
+      - name: Install Gradle 8.9
+        run: |
+          curl -L -o /tmp/gradle.zip https://services.gradle.org/distributions/gradle-8.9-bin.zip
+          unzip -q /tmp/gradle.zip -d /opt/
+          echo "/opt/gradle-8.9/bin" >> $GITHUB_PATH
+
+      - name: Verify tools
+        run: |
+          gradle --version | head -5
+          echo "ANDROID_HOME=$ANDROID_HOME"
 
       - name: Build Debug APK
-        run: |
-          set -o pipefail
-          gradle assembleDebug --no-daemon --stacktrace 2>&1 | tee build-debug.log
+        run: gradle assembleDebug --no-daemon --stacktrace
 
       - name: Build Release APK
-        run: |
-          set -o pipefail
-          gradle assembleRelease --no-daemon --stacktrace 2>&1 | tee build-release.log
+        run: gradle assembleRelease --no-daemon --stacktrace
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
@@ -53,21 +57,6 @@ jobs:
           name: spectrometer-release-apk
           path: app/build/outputs/apk/release/*.apk
           if-no-files-found: error
-
-      - name: Upload build logs on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-logs
-          path: build-*.log
-
-      - name: Dump errors to summary on failure
-        if: failure()
-        run: |
-          echo "## 构建失败错误" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          grep -E "e: |error:|FAILURE|What went wrong|Caused by|Unresolved|Compilation" build-debug.log 2>/dev/null | head -80 >> $GITHUB_STEP_SUMMARY || true
-          echo '```' >> $GITHUB_STEP_SUMMARY
 
       - name: Build summary
         run: |

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.SpectrometerMobile" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#1F4E79</item>
+        <item name="colorPrimaryDark">#143653</item>
+        <item name="colorAccent">#D7191C</item>
+        <item name="android:statusBarColor">#143653</item>
+    </style>
+</resources>

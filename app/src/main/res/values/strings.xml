@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Spectrometer Mobile</string>
+    <string name="save">保存光谱</string>
+    <string name="load">载入光谱</string>
+    <string name="background">背景</string>
+    <string name="reference">参考</string>
+    <string name="run">开始采集</string>
+    <string name="stop">停止</string>
+    <string name="camera_select">选择摄像头</string>
+    <string name="cct_label">CCT:</string>
+    <string name="peak_label">峰值:</string>
+    <string name="melanopic_label">melEDI:</string>
+    <string name="status_ready">就绪</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="波长范围 (nm)" android:textStyle="bold" />
+    <EditText android:id="@+id/etNmMin" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:hint="最小 nm" android:inputType="numberDecimal" />
+    <EditText android:id="@+id/etNmMax" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:hint="最大 nm" android:inputType="numberDecimal" />
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="ADC 最小值 (减去的底噪)" android:textStyle="bold" android:layout_marginTop="10dp" />
+    <EditText android:id="@+id/etAdcMin" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:hint="ADC Min" android:inputType="number" />
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="缩放系数 (WebCam 通常 256)" android:textStyle="bold" android:layout_marginTop="10dp" />
+    <EditText android:id="@+id/etScale" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:hint="Scale" android:inputType="number" />
+</LinearLayout>

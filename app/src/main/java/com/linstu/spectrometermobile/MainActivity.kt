@@ -234,17 +234,17 @@ class MainActivity : AppCompatActivity() {
                 val avgBright = if (count > 0) bright / count else 0.0
                 if (avgBright < darkThreshold) {
                     skippedCount++
-                    return@onFrame
-                }
-                validCount++
-                lastValidFrame = System.currentTimeMillis()
+                } else {
+                    validCount++
+                    lastValidFrame = System.currentTimeMillis()
 
-                engine.yPlaneToReceivedSamples(y, w, h, y0, dy, stride)
-                engine.processReceivedSamples()
+                    engine.yPlaneToReceivedSamples(y, w, h, y0, dy, stride)
+                    engine.processReceivedSamples()
 
-                scope.launch {
-                    spectrumView.invalidate()
-                    updateStats()
+                    scope.launch {
+                        spectrumView.invalidate()
+                        updateStats()
+                    }
                 }
             }
             camera.openCamera(camera.cameraId)
